@@ -27,13 +27,13 @@ class AVLTree {
 
     AVLTree();
     ~AVLTree();
-    void insert(int id, string name);
-    void remove(int id);
-    void search(int id);
-    void search(string name);
-    void printInOrder();
-    void printPreOrder();
-    void printPostOrder();
+    bool insert(int id, string name);
+    bool remove(int id);
+    bool search(int id);
+    bool search(string name);
+    vector<int>  printInOrder();
+    vector<int> printPreOrder();
+    vector<int> printPostOrder();
     void printLevelOrder();
     void removeInOrder();
 
