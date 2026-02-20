@@ -15,15 +15,22 @@ class AVLTree {
         int height;
         TreeNode *left;
         TreeNode *right;
-        TreeNode(int id, string name): ufid(id), name(name), height(0), left(nullptr), right(nullptr) {}
+        TreeNode(int id, string name): ufid(id), name(name), height(1), left(nullptr), right(nullptr) {}
     };
 
-    TreeNode* root;
 
-    void heighthelper(TreeNode *node);
-    void balancehelper(TreeNode *node, string direction);
+    int heighthelper(TreeNode *node);
+    int balancehelper(TreeNode *node);
+    TreeNode* insertHelper(TreeNode *node, int id, string name);
+    TreeNode* LRotation(TreeNode *node);
+    TreeNode* RRotation(TreeNode *node);
+    TreeNode* LRRotation(TreeNode *node);
+    TreeNode* RLRotation(TreeNode *node);
+
 
     public:
+
+    TreeNode* root;
 
     AVLTree();
     ~AVLTree();
@@ -35,7 +42,7 @@ class AVLTree {
     vector<int> printPreOrder();
     vector<int> printPostOrder();
     void printLevelOrder();
-    void removeInOrder();
+    void removeInOrder(int N);
 
 };
 
