@@ -1,0 +1,22 @@
+21
+"Test"
+00000002
+20202020
+insert "Test" 00000001
+insert "Test" 00000002
+insert "Test" 00000003
+insert "Test" 00000003
+insert "Test" 00000004
+insert "Test" 00000005
+insert "Test" 00000006
+remove 2
+remove 00000002
+search 00000002
+search 00000003
+search "Test"
+printInorder
+printPreorder
+printPostorder
+printLevelCount
+removeInorder 5
+removeInorder 1

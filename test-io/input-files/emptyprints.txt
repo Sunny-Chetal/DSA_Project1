@@ -1,0 +1,5 @@
+4
+printInorder
+printPreorder
+printPostorder
+printLevelCount

@@ -1,0 +1,12 @@
+11
+insert "Charlie" 00009999
+insert "Charlie!" 10009999
+insert "go to sleep" 10029999
+insert "Charlie, please go to sleep" 10039999
+insert "Please stop" 1009999
+insert "It is 1 am already" 10049999
+invert "Charlie" 10059999
+printInorder
+remove "Charlie!"
+insert "asdfasdfasdfasdfasdf" 99999999
+search "Charlie"

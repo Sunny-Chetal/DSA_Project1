@@ -1,0 +1,37 @@
+36
+insert "rightLeftOne" 00000001
+insert "rightLeftZero" 00000000
+insert "rightLeftTwo" 00000002
+printPreorder
+printInorder
+printPostorder
+remove 00000001
+remove 00000000
+remove 00000002
+insert "leftRightTwo" 00000002
+insert "leftRightZero" 00000000
+insert "leftRightOne" 00000001
+printPreorder
+printInorder
+printPostorder
+remove 00000002
+remove 00000000
+remove 00000001
+insert "rightfive" 00000005
+insert "rightfour" 00000004
+insert "rightthree" 00000003
+printPreorder
+printInorder
+printPostorder
+remove 00000005
+remove 00000004
+remove 00000003
+insert "leftthree" 00000003
+insert "leftfour" 00000004
+insert "leftfive" 00000005
+printPreorder
+printInorder
+printPostorder
+remove 00000003
+remove 00000004
+remove 00000005

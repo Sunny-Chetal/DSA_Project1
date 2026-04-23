@@ -1,0 +1,5 @@
+4
+insert "c" 00000003
+insert "b" 00000002
+insert "a" 00000001
+printInorder

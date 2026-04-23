@@ -1,0 +1,14 @@
+13
+insert "Adam" 00000001
+insert "Ben" 00000002
+insert "Carlos" 00000003
+printPreorder
+insert "Derek" 00000004
+insert "Elliot" 00000005
+printPreorder
+insert "Fred" 00000006
+printPreorder
+printPostorder
+insert "Gavin" 00000007
+printPreorder
+printInorder

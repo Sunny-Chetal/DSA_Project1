@@ -1,0 +1,11 @@
+10
+insert "Alex" 10019999
+insert "Bailey" 10029999
+insert "Chelsea" 10029999
+insert "Chelsea" 10039999
+insert "Danielle" 10049999
+insert "Eliza" 10059999
+insert "Alex" 00009999
+search 10049999
+search 00009999
+search "Alex"

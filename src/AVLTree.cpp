@@ -118,18 +118,24 @@ AVLTree::TreeNode* AVLTree::RLRotation(TreeNode* node) {
 
 }
 
-bool AVLTree::insert(int id, string name) {
+bool AVLTree::insert(string ufid, string name) {
+
     //Check if ID is valid input
-    if (id < 10000000 || id > 99999999 ) {
+    //Searched up to know how to multiply [0-9] by 8
+    regex obj = regex("^[0-9]{8}$");
+    if (!regex_match(ufid, obj)) {
         cout << "unsuccessful" << endl;
         return false;
     }
+
     //Check if name is valid input
-    regex obj("^[a-zA-Z\\s]+$");
-    if (!regex_match(name, obj)){
+    regex obj2("^[a-zA-Z\\s]+$");
+    if (!regex_match(name, obj2)){
         cout << "unsuccessful" << endl;
         return false;
     }
+
+    int id = stoi(ufid);
 
     //Check if ufid is found anywhere else
     TreeNode* current = this->root;
@@ -148,49 +154,140 @@ bool AVLTree::insert(int id, string name) {
 
     //Reassign the root node
     this->root = insertHelper(this->root, id, name);
-    //Note for Sunny, remove this print statement before you turn in
-    cout << this->root->ufid << this->root->name << endl;
     cout << "successful" << endl;
     return true;
 }
 
 bool AVLTree::remove(int id) {
-    //Reworked code from my printinorder to check ID inorder
+    if (this->root == nullptr) {
+        return false;
+    }
+
+    //Reworked code from my insert to check ID inorder and capture parent node
+    TreeNode* parent = nullptr;
     TreeNode* current = this->root;
-    stack<TreeNode*> s;
-    while (current != nullptr || !s.empty()) {
-        while(current != nullptr) {
-            s.push(current);
-            current = current->left;
-        }
-        current = s.top();
-        //Checks each node for id
+    bool found = false;
+
+    while (current != nullptr) {
         if (id == current->ufid) {
-           break;
+            found = true;
+            break;
         }
-        s.pop();
-        current = current->right;
+        parent = current;
+        if (id < current->ufid) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
     }
-    if (current->left == nullptr && current->right == nullptr) {
+
+    if (!found) {
+        cout << "unsuccessful" << endl;
+        return false;
+    }
+    //No children case
+    if (current->left == nullptr && current->right == nullptr && found) {
+        //if node to remove is root
+        if (current == this->root) {this->root = nullptr;}
+        else if (parent->left == current){ parent->left = nullptr;}
+        else if (parent->right == current){ parent->right = nullptr;}
         delete current;
+        cout << "successful" << endl;
+        return true;
     }
-    else if (current->left == nullptr || current->right == nullptr) {
-        if (current->left != nullptr) {
-            //link parent to child
-            delete current;
+    //One child case
+    else if ((current->left == nullptr || current->right == nullptr) && found) {
+        //if node to remove is root
+        if (current == this->root) {
+            if (current->left != nullptr) {
+                this->root = this->root->left;
+                delete current;
+                cout << "successful" << endl;
+                return true;
+            }
+            if (current->right != nullptr) {
+                this->root = this->root->right;
+                delete current;
+                cout << "successful" << endl;
+                return true;
+            }
         }
-        if (current->right != nullptr) {
-            //link parent to child
-            delete current;
+        else if (current->left != nullptr) {
+            if (parent->left == current) {
+                parent->left = current->left;
+                delete current;
+                cout << "successful" << endl;
+                return true;
+            }
+            else {
+                parent->right = current->left;
+                delete current;
+                cout << "successful" << endl;
+                return true;
+            }
+        }
+
+        else if (current->right != nullptr) {
+            if (parent->right == current) {
+                parent->right = current->right;
+                delete current;
+                cout << "successful" << endl;
+                return true;
+            }
+            else {
+                parent->left = current->right;
+                delete current;
+                cout << "successful" << endl;
+                return true;
+            }
         }
     }
+
+    //Two child case
     else if (current->left != nullptr && current->right != nullptr) {
 
+        // Find inorder successor
+        TreeNode* successor = current->right;
+        TreeNode* successorParent = current;
+
+        while (successor->left != nullptr) {
+            successorParent = successor;
+            successor = successor->left;
+        }
+
+
+        current->ufid = successor->ufid;
+        current->name = successor->name;
+
+        // Remove copied successor node safely
+        if (successorParent->left == successor) {
+            successorParent->left = successor->right;
+        } else {
+            successorParent->right = successor->right;
+        }
+
+        delete successor;
+
+        cout << "successful" << endl;
+        return true;
     }
+
+    cout << "unsuccessful" << endl;
     return false;
 }
+
 bool AVLTree::search(int id) {
     //Reworked code from insert when checking for duplicates to check ID inorder
+    string ufid = to_string(id);
+    while (ufid.length() < 8) {
+        ufid = "0" + ufid;
+    }
+    regex obj = regex("^[0-9]{8}$");
+    if (!regex_match(ufid, obj)) {
+        cout << "unsuccessful" << endl;
+        return false;
+    }
+
     TreeNode* current = this->root;
     while (current != nullptr) {
         if (id == current->ufid) {
@@ -209,6 +306,12 @@ bool AVLTree::search(int id) {
     return false;
 }
 bool AVLTree::search(string name) {
+    regex obj2("^[a-zA-Z\\s]+$");
+    if (!regex_match(name, obj2)){
+        cout << "unsuccessful" << endl;
+        return false;
+    }
+
     //Reworked code from my printpreorder to check for instances of name
     bool found = false;
     TreeNode* current = this->root;
@@ -219,7 +322,11 @@ bool AVLTree::search(string name) {
             result.push_back(current->ufid);
             //If name found will print ufid
             if (name == current->name) {
-                cout<< current->ufid <<endl;
+                string id = to_string(current->ufid);
+                while (id.length() < 8) {
+                    id = "0" + id;
+                }
+                cout<< id <<endl;
                 found = true;
             }
             s.push(current);
@@ -228,6 +335,9 @@ bool AVLTree::search(string name) {
         current = s.top();
         s.pop();
         current = current->right;
+    }
+    if (!found) {
+        cout << "unsuccessful" << endl;
     }
     return found;
 }
@@ -246,16 +356,17 @@ vector<int>  AVLTree::printInOrder() {
         }
             current = s.top();
             s.pop();
-            result.push_back(current->ufid);
-            if (current->ufid == result[0]) {
+            if (result.size() == 0) {
                 cout<< current->name <<"";
             }
             else {
                 cout << ", " << current->name <<"";
             }
+            result.push_back(current->ufid);
             //move to check right children in outer loop
             current = current->right;
     }
+    cout<< endl;
     return result;
 }
 
@@ -265,13 +376,13 @@ vector<int> AVLTree::printPreOrder() {
     vector<int> result;
     while (current != nullptr || !s.empty()) {
         while(current != nullptr) {
-            result.push_back(current->ufid);
-            if (current->ufid == result[0]) {
+            if (result.size() == 0) {
                 cout<< current->name <<"";
             }
             else {
                 cout << ", " << current->name <<"";
             }
+            result.push_back(current->ufid);
             s.push(current);
             current = current->left;
         }
@@ -279,12 +390,39 @@ vector<int> AVLTree::printPreOrder() {
         s.pop();
         current = current->right;
     }
+    cout << endl;
     return result;
 
 }
 
 vector<int> AVLTree::printPostOrder() {
-    vector<int> result = {1, 2, 3};
+    TreeNode* current = this->root;
+    stack<TreeNode*> s, collector;
+    vector<int> result;
+    if (current == nullptr) {
+        cout << endl;
+        return result;
+    }
+    s.push(current);
+        while(!s.empty()) {
+            current = s.top();
+            collector.push(current);
+            s.pop();
+            if (current->left != nullptr) {s.push(current->left);}
+            if (current->right != nullptr) {s.push(current->right);}
+        }
+        while (!collector.empty()) {
+            current = collector.top();
+            if (result.size() ==  0) {
+                cout<< current->name <<"";
+            }
+            else {
+                cout << ", " << current->name <<"";
+            }
+            result.push_back(current->ufid);
+            collector.pop();
+        }
+    cout << endl;
     return result;
 }
 
@@ -298,6 +436,32 @@ void AVLTree::printLevelOrder() {
     }
 }
 
-void AVLTree::removeInOrder(int N) {
-//Use inorder print to return vector of item then remove by uf id
+bool AVLTree::removeInOrder(int N) {
+    //Altered print inorder code to collect vector of inorder TreeNodes
+    if (N < 0) {
+        cout << "unsuccessful" << endl;
+        return false;
+    }
+    TreeNode* current = this->root;
+    stack<TreeNode*> s;
+    vector<TreeNode*> nodes;
+    while (current != nullptr || !s.empty()) {
+        while(current != nullptr) {
+            s.push(current);
+            current = current->left;
+        }
+        current = s.top();
+        s.pop();
+        nodes.push_back(current);
+        current = current->right;
+    }
+    if (N > (int)nodes.size() - 1) {
+        cout << "unsuccessful" << endl;
+        return false;
+    }
+    //Get id of Nth node and call remove using id
+    int id = nodes[N]->ufid;
+    bool success = remove(id);
+    return success;
+
 }

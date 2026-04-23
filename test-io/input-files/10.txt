@@ -1,0 +1,18 @@
+17
+insert "E" 00000005
+insert "D" 00000004
+insert "C" 00000003
+printPreorder
+printInorder
+insert "F" 00000006
+insert "G" 00000007
+printPreorder
+printInorder
+insert "A" 00000001
+insert "B" 00000002
+printPreorder
+printInorder
+insert "I" 00000009
+insert "H" 00000008
+printPreorder
+printInorder

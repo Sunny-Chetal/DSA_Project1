@@ -1,0 +1,23 @@
+successful
+successful
+successful
+successful
+successful
+successful
+C, B, A, E, D, F
+A, B, D, F, E, C
+successful
+C, B, E, D, F
+B, D, F, E, C
+successful
+successful
+C, A, E, D, F
+A, D, F, E, C
+successful
+C, A, F, D
+A, D, F, C
+successful
+C, A, F
+A, F, C
+unsuccessful
+2

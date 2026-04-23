@@ -1,0 +1,36 @@
+successful
+successful
+successful
+rightLeftOne, rightLeftZero, rightLeftTwo
+rightLeftZero, rightLeftOne, rightLeftTwo
+rightLeftZero, rightLeftTwo, rightLeftOne
+successful
+successful
+successful
+successful
+successful
+successful
+leftRightOne, leftRightZero, leftRightTwo
+leftRightZero, leftRightOne, leftRightTwo
+leftRightZero, leftRightTwo, leftRightOne
+successful
+successful
+successful
+successful
+successful
+successful
+rightfour, rightthree, rightfive
+rightthree, rightfour, rightfive
+rightthree, rightfive, rightfour
+successful
+successful
+successful
+successful
+successful
+successful
+leftfour, leftthree, leftfive
+leftthree, leftfour, leftfive
+leftthree, leftfive, leftfour
+successful
+successful
+successful

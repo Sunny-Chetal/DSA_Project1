@@ -5,6 +5,7 @@
 #ifndef PROJECT1_AVLTREE_H
 #define PROJECT1_AVLTREE_H
 #include <string>
+#include <vector>
 using namespace std;
 
 class AVLTree {
@@ -34,7 +35,7 @@ class AVLTree {
 
     AVLTree();
     ~AVLTree();
-    bool insert(int id, string name);
+    bool insert(string id, string name);
     bool remove(int id);
     bool search(int id);
     bool search(string name);
@@ -42,7 +43,7 @@ class AVLTree {
     vector<int> printPreOrder();
     vector<int> printPostOrder();
     void printLevelOrder();
-    void removeInOrder(int N);
+    bool removeInOrder(int N);
 
 };
 

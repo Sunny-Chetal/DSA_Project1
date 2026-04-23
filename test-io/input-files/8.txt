@@ -1,0 +1,24 @@
+23
+insert "C" 00000003
+insert "B" 00000002
+insert "E" 00000005
+insert "A" 00000001
+insert "D" 00000004
+insert "F" 00000006
+printPreorder
+printPostorder
+remove 00000001
+printPreorder
+printPostorder
+insert "A" 00000001
+remove 00000002
+printPreorder
+printPostorder
+remove 00000005
+printPreorder
+printPostorder
+remove 00000004
+printPreorder
+printPostorder
+remove 00000000
+printLevelCount
